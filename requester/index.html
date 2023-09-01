@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP request for Golang using Nigel2392/requester library</title>
+    <script type="text/javascript" src="wasm_exec.js"></script>
+</head>
+<body>
+<h2>HTTP Request from inside WASM using Nigel2392/requester library</h2>
+
+<p>This example uses <a href="https://github.com/Nigel2392/requester">Nigel2392/requester</a> library for Golang.</p>
+<p>See the output in browser developer console.</p>
+
+<p>Actual code:</p>
+<pre>
+var client = requester.NewAPIClient()
+ch := make(chan struct{})
+client.Get("https://httpbin.org/anything").Do(func(response *http.Response) {
+  defer response.Body.Close()
+
+  body, err := io.ReadAll(response.Body)
+  if err == nil {
+    fmt.Println(string(body))
+  } else {
+    fmt.Println(err)
+  }
+
+  ch <- struct{}{}
+})
+<-ch
+</pre>
+<script type="text/javascript">
+    const go = new Go();
+    WebAssembly.instantiateStreaming(fetch('http-get.wasm'), go.importObject).then((result) => {
+        go.run(result.instance);
+    });
+</script>
+
+<section>
+    <h4>Info</h4>
+    <ul>
+        <li><a href="https://github.com/wasm-outbound-http-examples/go/tree/main/browser-requester">Demo source code</a></li>
+        <li>Versions used on the moment of build: <small>Go: 1.21.0,
+            Nigel2392/requester: <a href="https://github.com/Nigel2392/requester/releases/tag/v1.0.0">v1.0.0</a></small></li>
+    </ul>
+</section>
+
+<footer><small>Created for (wannabe-awesome) <a href="https://github.com/vasilev/HTTP-request-from-inside-WASM">list</a></small></footer>
+</body>
+</html>
