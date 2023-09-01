@@ -7,7 +7,7 @@
 1. Open this repo in devcontainer, e.g. using Github Codespaces.
    Type or copy/paste following commands to devcontainer's terminal.
 
-2. Since `[stealthrocket/net](https://github.com/stealthrocket/net)` uses `GOOS=wasip1` feature to be
+2. Since [`stealthrocket/net`](https://github.com/stealthrocket/net) uses `GOOS=wasip1` feature to be
    [released](https://github.com/stealthrocket/net/blob/v0.1.4/README.md?plain=1#L18) 
    in Go 1.21 in August 2023, the installation of `gotip` (Golang from master branch) is needed prior that release.
    To install Gotip enter the command:
@@ -19,7 +19,7 @@ gotip download
 
 ### Building
 
-1. `cd` into folder if this example:
+1. `cd` into the folder of this example:
 
 ```sh
 cd wasi-stealthrocket-net
