@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP request for Golang using Vecty UI library</title>
+</head>
+<body>
+<h2>HTTP Request from inside WASM using Vecty frontend library</h2>
+
+<p>This example uses <a href="https://github.com/hexops/vecty">Vecty UI library</a> for Golang.</p>
+<p>See the output in browser developer console.</p>
+
+<p>Actual code:</p>
+<pre>
+func (b *Body) httpRequest(*vecty.Event) {
+  dispatcher.Dispatch(&actions.HttpRequest{Url: "https://httpbin.org/anything"})
+}
+</pre>
+
+<hr/>
+<iframe src="vecty.html"  style="min-width: 60%; min-height: 14em">
+    <script type="text/javascript" src="wasm_exec.js"></script>
+    <script type="text/javascript">
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch('vecty.wasm'), go.importObject).then((result) => {
+            go.run(result.instance);
+        });
+    </script>
+</iframe>
+
+<section>
+    <h4>Info</h4>
+    <ul>
+        <li><a href="https://github.com/wasm-outbound-http-examples/go/tree/main/browser-vecty">Demo source code</a></li>
+        <li>Versions used on the moment of build: <small>Go: 1.23.2,
+            Vecty: <a href="https://github.com/hexops/vecty/releases/tag/v0.6.0">v0.6.0</a>,
+            vectytemplater: <a href="https://pkg.go.dev/github.com/soypat/vectytemplater@v0.0.0-20220501050640-d40b24e35168">v0.0.0-20220501050640-d40b24e35168</a>
+        </small></li>
+    </ul>
+</section>
+<footer><small>Created for (wannabe-awesome) <a href="https://github.com/vasilev/HTTP-request-from-inside-WASM">list</a></small></footer>
+</body>
+</html>
