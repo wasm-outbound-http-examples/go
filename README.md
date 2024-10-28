@@ -73,6 +73,24 @@ Use Vecty UI library to send HTTP requests from web browser.
 
 </td>
 </tr>
+<tr>
+<td>3</td>
+<td>
+
+[Hogosuru](browser-hogosuru/README.md)
+
+</td>
+<td>
+
+Use Hogosuru framework to send HTTP requests from web browser.
+
+</td>
+<td>
+
+[Demo](https://wasm-outbound-http-examples.github.io/go/hogosuru/)
+
+</td>
+</tr>
 </table>
 
 <sub>Created for (wannabe-awesome) [list](https://github.com/vasilev/HTTP-request-from-inside-WASM)</sub>

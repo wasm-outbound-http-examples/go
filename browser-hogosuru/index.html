@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP request for Golang using Hogosuru framework</title>
+    <script type="text/javascript" src="wasm_exec.js"></script>
+</head>
+<body class="content">
+<h2>HTTP Request from inside WASM using Hogosuru</h2>
+
+<p>This example uses <a href="https://github.com/realPy/hogosuru">Hogosuru</a> framework.</p>
+<p>See the output in browser developer console.</p>
+
+<p>Actual code:</p>
+<pre>
+buttonprimary.OnClick(func(e event.Event) {
+    if ftch, err := fetch.New("https://httpbin.org/anything", nil); hogosuru.AssertErr(err) {
+      ftch.Then(func(r response.Response) *promise.Promise {
+        textpromise, _ := ftch.Then(func(r response.Response) *promise.Promise {
+          if promise, err := r.Text(); hogosuru.AssertErr(err) {
+            return &promise
+          }
+          return nil
+        }, nil)
+        textpromise.Then(func(i interface{}) *promise.Promise {
+          fmt.Println(i.(string))
+          if element, err := doc.GetElementById("outtxt"); hogosuru.AssertErr(err) {
+            element.SetTextContent(i.(string))
+          }
+          return nil
+        }, nil)
+        return nil
+      }, func(e error) {
+        fmt.Printf("An error occured: %s\n", e.Error())
+      })
+    }
+})
+</pre>
+<script type="text/javascript">
+    const go = new Go();
+    WebAssembly.instantiateStreaming(fetch('main.wasm'), go.importObject).then((result) => {
+        go.run(result.instance);
+    });
+</script>
+<footer><small>Created for (wannabe-awesome) <a href="https://github.com/vasilev/HTTP-request-from-inside-WASM">list</a></small></footer>
+</body>
+</html>
